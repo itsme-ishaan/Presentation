@@ -17,6 +17,11 @@
         --text-muted: #94a3b8;
         --glass-border: rgba(255, 255, 255, 0.08);
         --glow: 0 0 20px rgba(99, 102, 241, 0.3);
+        
+        /* Status Colors */
+        --color-pending: #ef4444; /* Red */
+        --color-progress: #3b82f6; /* Blue */
+        --color-done: #10b981; /* Green */
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -68,14 +73,14 @@
     /* --- UI COMPONENTS --- */
     
     .krmu-logo-container {
+        margin-top: 60px; /* Logo aur content ko upar shift kiya */
         margin-bottom: 2rem;
         filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
         animation: float 6s ease-in-out infinite;
     }
     
-    /* UPDATED LOGO CSS */
     .krmu-logo {
-        width: 150px; /* Size adjusted */
+        width: 220px; /* Logo ka size badhaya */
         height: auto;
         display: block;
     }
@@ -104,7 +109,7 @@
     h2 {
         font-family: 'Space Grotesk', sans-serif;
         font-size: 3rem;
-        margin-bottom: 2rem;
+        margin-bottom: 10px;
         color: var(--text-main);
     }
 
@@ -115,6 +120,20 @@
         text-transform: uppercase;
         margin-bottom: 1rem;
         font-weight: 700;
+    }
+
+    /* --- EXPLANATION BOX --- */
+    .explanation-box {
+        background: rgba(99, 102, 241, 0.05);
+        border-left: 4px solid var(--primary);
+        padding: 12px 20px;
+        border-radius: 0 10px 10px 0;
+        margin-bottom: 30px;
+        max-width: 800px;
+        text-align: center;
+        color: #cbd5e1;
+        font-size: 1.1rem;
+        font-style: italic;
     }
 
     /* --- LAYOUTS --- */
@@ -245,12 +264,15 @@
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-10px); }
     }
+    @keyframes pulse-arrow {
+        0%, 100% { transform: scale(1) translateX(0); }
+        50% { transform: scale(1.1) translateX(10px); }
+    }
 
 </style>
 </head> 
 <body>
 
-<!-- NAVIGATION -->
 <div class="slide-counter"><span id="current-slide">01</span> / <span id="total-slides">10</span></div>
 <div class="nav-controls">
     <button class="nav-btn" onclick="prevSlide()">&#8593;</button>
@@ -259,39 +281,39 @@
 
 <div class="slides-container">
 
-    <!-- SLIDE 1: INTRO -->
     <section class="slide active">
-        <div class="krmu-logo-container">
-            <!-- IMPORTANT: Save your logo as 'logo.png' in the same folder -->
-            <img src="logo.png" alt="KRMU Logo" class="krmu-logo">
-        </div>
-        <div class="tagline">Semester 2 Project</div>
-        <h1>TaskFlow</h1>
-        <p style="font-size: 1.5rem; color: var(--text-muted); margin-top: 10px; font-weight: 300;">Advanced Software Engineering & Agile Practices</p>
-        <div style="margin-top: 40px; color: var(--accent); font-family: 'Space Grotesk';">MCA Core Batch 2025-2027</div>
-        
-        <div class="team-grid glass-card" style="width: auto; margin-top: 60px; gap: 30px;">
-            <div class="member-card">
-                <span class="role-badge">Product Manager</span>
-                <h3>Shekhar</h3>
+        <div style="transform: scale(0.85); display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <div class="krmu-logo-container">
+                <img src="logo.png" alt="KRMU Logo" class="krmu-logo">
             </div>
-            <div class="member-card">
-                <span class="role-badge">Project Manager</span>
-                <h3>Sumit</h3>
-            </div>
-            <div class="member-card">
-                <span class="role-badge">Scrum Master</span>
-                <h3>Sachin</h3>
-            </div>
-            <div class="member-card">
-                <span class="role-badge">Developers</span>
-                <h3>Ishaan, Sagar, Hishant</h3>
+            <div class="tagline">Semester 2 Project</div>
+            <h1>TaskFlow</h1>
+            <p style="font-size: 1.5rem; color: var(--text-muted); margin-top: 10px; font-weight: 300;">Advanced Software Engineering & Agile Practices</p>
+            <div style="margin-top: 40px; color: var(--accent); font-family: 'Space Grotesk'; font-size: 1.2rem;">MCA Core Batch 2025-2027</div>
+            
+            <div class="team-grid glass-card" style="width: auto; margin-top: 40px; gap: 30px;"> <div class="member-card">
+                    <span class="role-badge">Product Manager</span>
+                    <h3>Shekhar</h3>
+                </div>
+                <div class="member-card">
+                    <span class="role-badge">Project Manager</span>
+                    <h3>Sumit</h3>
+                </div>
+                <div class="member-card">
+                    <span class="role-badge">Scrum Master</span>
+                    <h3>Sachin</h3>
+                </div>
+                <div class="member-card">
+                    <span class="role-badge">Developers</span>
+                    <h3>Ishaan, Sagar, Hishant</h3>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- SLIDE 2: PROBLEM & SOLUTION -->
     <section class="slide">
+        <h2>Why We Built This</h2>
+        <div class="explanation-box">Every great software solves a real-world problem. Here is ours.</div>
         <div class="split-layout">
             <div class="glass-card">
                 <h2 style="color: #ef4444;">The Problem</h2>
@@ -308,9 +330,9 @@
         </div>
     </section>
 
-    <!-- SLIDE 3: AGILE PROCESS -->
     <section class="slide">
         <h2>Agile Workflow</h2>
+        <div class="explanation-box">Agile is a methodology that helps developer teams build software iteratively, adapting to changes quickly rather than waiting for a final massive release.</div>
         <div class="split-layout glass-card">
             <div style="display: flex; flex-direction: column; gap: 30px;">
                 <div style="display: flex; align-items: center; gap: 20px;">
@@ -335,9 +357,9 @@
         </div>
     </section>
 
-    <!-- SLIDE 4: TIMELINE -->
     <section class="slide">
         <h2>Development Roadmap</h2>
+        <div class="explanation-box">A roadmap gives developers and stakeholders a clear timeline of feature rollouts.</div>
         <div class="glass-card" style="width: 100%; max-width: 1000px;">
             <div style="display: flex; justify-content: space-between; position: relative; padding: 20px 0;">
                 <div style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: rgba(255,255,255,0.1); z-index: 0;"></div>
@@ -366,9 +388,9 @@
         </div>
     </section>
 
-    <!-- SLIDE 5: PERSONAS -->
     <section class="slide">
         <h2>User Personas</h2>
+        <div class="explanation-box">Personas help developers design UI and features from the perspective of the actual end-users.</div>
         <div class="split-layout">
             <div class="glass-card">
                 <div style="font-size: 3rem; margin-bottom: 10px;">🎓</div>
@@ -391,54 +413,76 @@
         </div>
     </section>
 
-    <!-- SLIDE 6: KANBAN -->
     <section class="slide">
-        <h2>Kanban Status</h2>
+        <h2>Kanban Board</h2>
+        <div class="explanation-box">Kanban is a visual tool used by developers to track the status of code features. It limits 'Work In Progress' and highlights bottlenecks.</div>
+        
         <div class="glass-card" style="width: 100%; max-width: 1200px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
-            <!-- DONE -->
-            <div style="background: rgba(20, 184, 166, 0.1); padding: 15px; border-radius: 10px; border-top: 3px solid var(--accent);">
-                <h4 style="margin-bottom: 15px; color: var(--accent);">DONE</h4>
-                <div style="background: #fff; color: #000; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">DB Schema Design</div>
-                <div style="background: #fff; color: #000; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">Login UI (HTML/CSS)</div>
+            <div style="background: rgba(239, 68, 68, 0.05); padding: 15px; border-radius: 10px; border-top: 3px solid var(--color-pending);">
+                <h4 style="margin-bottom: 15px; color: var(--color-pending);">PENDING / TO-DO</h4>
+                <div style="background: #e0e0e0; color: #333; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">Profile Settings UI</div>
+                <div style="background: #e0e0e0; color: #333; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">Cloud Deployment AWS</div>
+                <div style="background: #e0e0e0; color: #333; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">Email Notifications Setup</div>
+                <div style="background: #e0e0e0; color: #333; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">Admin Analytics Panel</div>
             </div>
-            <!-- DOING -->
-            <div style="background: rgba(168, 85, 247, 0.1); padding: 15px; border-radius: 10px; border-top: 3px solid var(--secondary);">
-                <h4 style="margin-bottom: 15px; color: var(--secondary);">IN PROGRESS</h4>
-                <div style="background: #fff; color: #000; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">Python Auth Logic</div>
-                <div style="background: #fff; color: #000; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">Task CRUD API</div>
+            
+            <div style="background: rgba(59, 130, 246, 0.05); padding: 15px; border-radius: 10px; border-top: 3px solid var(--color-progress);">
+                <h4 style="margin-bottom: 15px; color: var(--color-progress);">IN PROGRESS</h4>
+                <div style="background: #fff; color: #000; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem; border-left: 3px solid var(--color-progress);">Python Auth Logic (JWT)</div>
+                <div style="background: #fff; color: #000; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem; border-left: 3px solid var(--color-progress);">Task CRUD API Backend</div>
+                <div style="background: #fff; color: #000; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem; border-left: 3px solid var(--color-progress);">Frontend-Backend Linking</div>
             </div>
-            <!-- TODO -->
-            <div style="background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 10px; border-top: 3px solid #666;">
-                <h4 style="margin-bottom: 15px; color: #999;">TO DO</h4>
-                <div style="background: #e0e0e0; color: #555; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">Profile Settings</div>
-                <div style="background: #e0e0e0; color: #555; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">Cloud Deployment</div>
+            
+            <div style="background: rgba(16, 185, 129, 0.05); padding: 15px; border-radius: 10px; border-top: 3px solid var(--color-done);">
+                <h4 style="margin-bottom: 15px; color: var(--color-done);">DONE</h4>
+                <div style="background: #fff; color: #000; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem; border-left: 3px solid var(--color-done); text-decoration: line-through; opacity: 0.7;">DB Schema Design</div>
+                <div style="background: #fff; color: #000; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem; border-left: 3px solid var(--color-done); text-decoration: line-through; opacity: 0.7;">Login/Dashboard UI (HTML)</div>
+                <div style="background: #fff; color: #000; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem; border-left: 3px solid var(--color-done); text-decoration: line-through; opacity: 0.7;">Wireframing & Prototyping</div>
             </div>
         </div>
     </section>
 
-    <!-- SLIDE 7: ARCHITECTURE (UML) -->
     <section class="slide">
         <h2>System Architecture</h2>
-        <div class="split-layout">
-             <div class="glass-card" style="text-align: center;">
-                 <h3>Use Case</h3>
-                 <svg width="200" height="200" viewBox="0 0 100 100" style="margin: 20px auto; display: block; filter: drop-shadow(0 0 5px white);">
-                     <circle cx="50" cy="20" r="10" stroke="white" stroke-width="2" fill="none"/>
-                     <line x1="50" y1="30" x2="50" y2="70" stroke="white" stroke-width="2"/>
-                     <line x1="50" y1="40" x2="20" y2="60" stroke="white" stroke-width="2"/>
-                     <line x1="50" y1="40" x2="80" y2="60" stroke="white" stroke-width="2"/>
-                     <line x1="50" y1="70" x2="30" y2="100" stroke="white" stroke-width="2"/>
-                     <line x1="50" y1="70" x2="70" y2="100" stroke="white" stroke-width="2"/>
+        <div class="explanation-box">UML (Unified Modeling Language) is a standard way developers visualize system structure, object classes, and actor interactions before writing code.</div>
+        
+        <div style="display: flex; gap: 40px; width: 100%; max-width: 1200px; align-items: center; justify-content: center;">
+             
+             <div class="glass-card" style="text-align: center; flex: 1;">
+                 <h3 style="color: var(--secondary);">Use Case Actors</h3>
+                 <svg width="200" height="150" viewBox="0 0 200 150" style="margin: 20px auto; display: block; filter: drop-shadow(0 0 5px white);">
+                     <circle cx="50" cy="30" r="15" stroke="white" stroke-width="2" fill="none"/>
+                     <line x1="50" y1="45" x2="50" y2="100" stroke="white" stroke-width="2"/>
+                     <line x1="50" y1="60" x2="20" y2="80" stroke="white" stroke-width="2"/>
+                     <line x1="50" y1="60" x2="80" y2="80" stroke="white" stroke-width="2"/>
+                     <line x1="50" y1="100" x2="25" y2="140" stroke="white" stroke-width="2"/>
+                     <line x1="50" y1="100" x2="75" y2="140" stroke="white" stroke-width="2"/>
+                     
+                     <circle cx="150" cy="30" r="15" stroke="var(--accent)" stroke-width="2" fill="none"/>
+                     <line x1="150" y1="45" x2="150" y2="100" stroke="var(--accent)" stroke-width="2"/>
+                     <line x1="150" y1="60" x2="120" y2="80" stroke="var(--accent)" stroke-width="2"/>
+                     <line x1="150" y1="60" x2="180" y2="80" stroke="var(--accent)" stroke-width="2"/>
+                     <line x1="150" y1="100" x2="125" y2="140" stroke="var(--accent)" stroke-width="2"/>
+                     <line x1="150" y1="100" x2="175" y2="140" stroke="var(--accent)" stroke-width="2"/>
                  </svg>
-                 <p>Actor: Student</p>
+                 <div style="display:flex; justify-content: space-around;">
+                     <p>Student</p>
+                     <p style="color: var(--accent);">Admin</p>
+                 </div>
              </div>
-             <div class="glass-card">
-                 <h3>Class Structure</h3>
+
+             <div style="font-size: 5rem; color: var(--primary); animation: pulse-arrow 2s infinite;">
+                 &rarr;
+             </div>
+
+             <div class="glass-card" style="flex: 1;">
+                 <h3 style="color: var(--primary);">Class Structure</h3>
                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px; border: 1px solid #444;">
                      <span style="color: var(--secondary);">class</span> User {<br>
                      &nbsp;&nbsp;+ id: Integer<br>
                      &nbsp;&nbsp;+ email: String<br>
                      &nbsp;&nbsp;+ password_hash: String<br>
+                     &nbsp;&nbsp;+ role: Enum(Student, Admin)<br>
                      }<br><br>
                      <span style="color: var(--accent);">class</span> Task {<br>
                      &nbsp;&nbsp;+ id: Integer<br>
@@ -451,23 +495,19 @@
         </div>
     </section>
 
-    <!-- SLIDE 8: UI SHOWCASE 1 -->
     <section class="slide">
-        <h2 style="margin-bottom: 40px;">Prototype Showcase</h2>
+        <h2 style="margin-bottom: 40px;">Application Prototype Showcase</h2>
         <div class="gallery-container">
-            <!-- Large Main Image (Login) -->
             <div class="gallery-item main">
                 <img src="login.png" alt="Login Page">
                 <div class="img-label">Secure Authentication UI</div>
             </div>
             
-            <!-- Secondary Image (Dashboard) -->
             <div class="gallery-item">
                 <img src="dashboard.png" alt="Dashboard">
                 <div class="img-label">Student Dashboard</div>
             </div>
             
-            <!-- Secondary Image (Add Task) -->
             <div class="gallery-item">
                 <img src="add_task.png" alt="Add Task Modal">
                 <div class="img-label">Task Creation Logic</div>
@@ -475,23 +515,19 @@
         </div>
     </section>
 
-    <!-- SLIDE 9: UI SHOWCASE 2 (TASK MGMT) -->
     <section class="slide">
         <h2 style="margin-bottom: 40px;">Task Management</h2>
         <div class="gallery-container">
-             <!-- Large Main Image (My Tasks - Red/Yellow Cards) -->
              <div class="gallery-item main">
                 <img src="my_tasks.png" alt="My Tasks List">
                 <div class="img-label">Task Filtering & Actions</div>
             </div>
 
-            <!-- Secondary Image (Admin/Stats) -->
-             <div class="gallery-item">
+            <div class="gallery-item">
                 <img src="admin.png" alt="Admin View">
                 <div class="img-label">Admin Controls</div>
             </div>
             
-             <!-- Text Block -->
              <div class="gallery-item" style="background: var(--bg-panel); display: flex; align-items: center; justify-content: center; padding: 20px;">
                 <div style="text-align: center;">
                     <h3 style="color: var(--accent);">Features</h3>
@@ -501,23 +537,31 @@
         </div>
     </section>
 
-    <!-- SLIDE 10: CONCLUSION -->
     <section class="slide">
         <h1 style="font-size: 4rem;">Conclusion</h1>
-        <p style="font-size: 1.5rem; color: var(--text-muted); margin-bottom: 50px;">Organize your life, one task at a time.</p>
+        <p style="font-size: 1.5rem; color: var(--text-muted); margin-bottom: 40px;">Organize your life, one task at a time.</p>
         
         <div class="split-layout" style="gap: 30px; max-width: 900px;">
-            <div class="glass-card" style="text-align: center;">
+            <div class="glass-card" style="text-align: center; padding: 25px;">
                 <h3 style="color: var(--accent);">Next Sprint</h3>
                 <p>Email Notifications</p>
             </div>
-            <div class="glass-card" style="text-align: center;">
+            <div class="glass-card" style="text-align: center; padding: 25px;">
                 <h3 style="color: var(--secondary);">Goal</h3>
                 <p>100% On-time Submission</p>
             </div>
         </div>
 
-        <div style="margin-top: 60px; font-size: 1.2rem; font-family: 'Space Grotesk';">
+        <div style="margin-top: 40px; text-align: center; background: var(--bg-panel); padding: 20px 40px; border-radius: 15px; border: 1px solid var(--glass-border); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+            <h4 style="color: var(--primary); margin-bottom: 15px; font-family: 'Space Grotesk'; font-size: 1.2rem; letter-spacing: 1px;">Presentation Created By Developers Team</h4>
+            <div style="color: var(--text-main); font-weight: 500; font-size: 1.1rem; line-height: 1.8;">
+                <span style="color: var(--accent); font-size: 1.3rem; font-weight: 700;">Ishaan</span><br>
+                Sagar<br>
+                Hishant
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; font-size: 1.5rem; font-family: 'Space Grotesk'; color: var(--text-muted);">
             Thank You!
         </div>
     </section>
@@ -574,4 +618,3 @@
 
 </body> 
 </html>
-
