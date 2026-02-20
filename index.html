@@ -3,37 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TaskFlow Project Presentation</title>
+<title>TaskFlow | Premium Presentation</title>
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Space+Grotesk:wght@300;500;700&display=swap');
 
     :root {
-        --bg-gradient: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-        --glass-surface: rgba(255, 255, 255, 0.05);
-        --glass-border: rgba(255, 255, 255, 0.1);
-        --primary-accent: #8e44ad; /* Deep Purple */
-        --secondary-accent: #00cec9; /* Cyan */
-        --highlight: #fdcb6e; /* Yellow */
+        --bg-dark: #050505;
+        --bg-panel: rgba(20, 20, 25, 0.6);
+        --primary: #6366f1; /* Indigo */
+        --secondary: #a855f7; /* Purple */
+        --accent: #14b8a6; /* Teal */
         --text-main: #ffffff;
-        --text-muted: #b2bec3;
+        --text-muted: #94a3b8;
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --glow: 0 0 20px rgba(99, 102, 241, 0.3);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-        background: var(--bg-gradient);
-        font-family: 'Poppins', sans-serif;
+        background-color: var(--bg-dark);
+        background-image: 
+            radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15), transparent 25%),
+            radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.15), transparent 25%);
+        font-family: 'Outfit', sans-serif;
         color: var(--text-main);
-        overflow: hidden; /* Hide scrollbars for presentation mode */
-    }
-
-    /* --- SLIDE LAYOUT --- */
-    .slides-container {
+        overflow: hidden;
         height: 100vh;
         width: 100vw;
-        overflow-y: scroll;
-        scroll-snap-type: y mandatory;
-        scroll-behavior: smooth;
+    }
+
+    /* --- SLIDE CONTAINER --- */
+    .slides-container {
+        height: 100vh;
+        width: 100%;
+        overflow-y: hidden;
+        position: relative;
     }
 
     .slide {
@@ -43,522 +48,528 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 40px;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
+        padding: 4vw;
         position: relative;
-        scroll-snap-align: start;
-    }
-
-    .slide-number {
+        opacity: 0;
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        transform: translateY(20px);
+        pointer-events: none;
         position: absolute;
-        top: 20px; right: 30px;
-        font-family: 'JetBrains Mono', monospace;
-        opacity: 0.3; font-size: 1.2rem;
+        top: 0; left: 0;
     }
 
-    .content-wrapper {
-        display: flex;
-        width: 100%;
-        max-width: 1300px;
-        gap: 50px;
-        align-items: flex-start;
+    .slide.active {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: all;
+        z-index: 10;
     }
 
-    /* --- VISUAL AREA (Left) --- */
-    .visual-area {
-        flex: 1.8;
-        background: var(--glass-surface);
-        backdrop-filter: blur(12px);
+    /* --- UI COMPONENTS --- */
+    
+    .krmu-logo-container {
+        margin-bottom: 2rem;
+        filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    /* UPDATED LOGO CSS */
+    .krmu-logo {
+        width: 150px; /* Size adjusted */
+        height: auto;
+        display: block;
+    }
+
+    .glass-card {
+        background: var(--bg-panel);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
         border: 1px solid var(--glass-border);
-        border-radius: 20px;
+        border-radius: 24px;
         padding: 40px;
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        min-height: 500px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        position: relative;
-        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     }
 
-    /* --- EXPLANATION AREA (Right/Notes) --- */
-    .explanation-area {
-        flex: 1;
-        padding-top: 20px;
+    h1 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 5rem;
+        line-height: 1;
+        margin-bottom: 10px;
+        background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -2px;
     }
 
     h2 {
-        font-size: 2.2rem;
-        margin-bottom: 10px;
-        background: linear-gradient(to right, #fff, #a29bfe);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 3rem;
+        margin-bottom: 2rem;
+        color: var(--text-main);
+    }
+
+    .tagline {
+        font-size: 1.2rem;
+        color: var(--primary);
+        letter-spacing: 4px;
         text-transform: uppercase;
+        margin-bottom: 1rem;
+        font-weight: 700;
     }
 
-    .sub-heading { color: var(--secondary-accent); margin-bottom: 20px; font-weight: 300; font-size: 1.1rem; }
-
-    .notes-box {
-        background: rgba(0, 0, 0, 0.3);
-        border-left: 4px solid var(--primary-accent);
-        padding: 20px;
-        border-radius: 0 10px 10px 0;
-    }
-
-    .notes-title {
-        font-family: 'JetBrains Mono', monospace;
-        color: var(--secondary-accent);
-        font-size: 0.9rem;
-        margin-bottom: 15px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    ul.points { padding-left: 20px; line-height: 1.8; color: var(--text-muted); font-size: 0.95rem; }
-    ul.points li::marker { color: var(--primary-accent); }
-    strong { color: white; }
-
-    /* --- COMPONENTS --- */
-    .tag { display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 0.8rem; margin: 0 5px 5px 0; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); }
-    
-    /* Team Grid */
-    .team-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px; }
-    .team-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); }
-    .role { color: var(--secondary-accent); font-size: 0.8rem; text-transform: uppercase; font-weight: bold; }
-    .name { font-size: 1.1rem; font-weight: 600; margin-top: 5px; }
-
-    /* Timeline */
-    .timeline-item { display: flex; margin-bottom: 20px; position: relative; }
-    .timeline-marker { width: 12px; height: 12px; border-radius: 50%; background: #444; margin: 6px 20px 0 0; z-index: 2; }
-    .timeline-marker.done { background: #00b894; box-shadow: 0 0 10px #00b894; }
-    .timeline-line { position: absolute; left: 5px; top: 18px; bottom: -20px; width: 2px; background: rgba(255,255,255,0.1); }
-
-    /* Kanban */
-    .kanban-wrapper { display: flex; gap: 15px; height: 100%; align-items: stretch; }
-    .k-col { flex: 1; background: rgba(0,0,0,0.2); border-radius: 10px; padding: 10px; display: flex; flex-direction: column; gap: 10px; }
-    .k-header { font-weight: bold; border-bottom: 2px solid #555; padding-bottom: 5px; font-size: 0.9rem; display: flex; justify-content: space-between; }
-    .k-card { background: #fff; color: #333; padding: 10px; border-radius: 6px; font-size: 0.8rem; position: relative; }
-    .k-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #ccc; }
-    .border-high::before { background: #ff7675; }
-    .border-med::before { background: #fdcb6e; }
-    
-    /* UML & Stickman */
-    .stickman { width: 50px; height: 80px; stroke: white; stroke-width: 3; fill: none; margin: 0 auto; filter: drop-shadow(0 0 5px white); }
-    .uml-box { background: white; color: #333; border: 1px solid #000; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; width: 200px; }
-    .uml-header { background: #dfe6e9; padding: 5px; text-align: center; font-weight: bold; border-bottom: 1px solid #000; }
-    .uml-body { padding: 5px; }
-
-    /* --- NEW: IMAGE GALLERY STYLES --- */
-    .gallery-grid {
+    /* --- LAYOUTS --- */
+    .split-layout {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        gap: 15px;
-        height: 100%;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
         width: 100%;
-    }
-    .gallery-item {
-        background: #000;
-        border-radius: 10px;
-        overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.2);
-        transition: transform 0.3s ease;
-        position: relative;
-    }
-    .gallery-item:hover { transform: scale(1.05); z-index: 10; border-color: var(--secondary-accent); }
-    .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-    .gallery-item.large { grid-column: span 2; grid-row: span 2; }
-    .gallery-caption {
-        position: absolute; bottom: 0; left: 0; right: 0;
-        background: rgba(0,0,0,0.7); color: white;
-        padding: 5px; font-size: 0.7rem; text-align: center;
+        max-width: 1400px;
+        align-items: center;
     }
 
-    /* Navigation Hint */
-    .nav-hint {
-        position: fixed; bottom: 20px; right: 20px;
-        background: rgba(0,0,0,0.5); padding: 10px 20px;
-        border-radius: 30px; font-size: 0.8rem; color: #aaa;
-        pointer-events: none; opacity: 0.7;
+    .text-content h3 { font-size: 2rem; margin-bottom: 1rem; color: var(--text-main); }
+    .text-content p { font-size: 1.1rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 1.5rem; }
+
+    ul.minimal-list { list-style: none; }
+    ul.minimal-list li {
+        margin-bottom: 15px;
+        padding-left: 20px;
+        position: relative;
+        color: var(--text-muted);
+        font-size: 1.1rem;
+    }
+    ul.minimal-list li::before {
+        content: ''; position: absolute; left: 0; top: 10px;
+        width: 6px; height: 6px; background: var(--accent); border-radius: 50%;
+        box-shadow: 0 0 10px var(--accent);
+    }
+
+    /* Team Grid */
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        width: 100%;
+        margin-top: 40px;
+    }
+    .member-card {
+        background: rgba(255,255,255,0.03);
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid var(--glass-border);
+        text-align: center;
+        transition: transform 0.3s;
+    }
+    .member-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.05); }
+    .role-badge { 
+        display: inline-block; padding: 4px 12px; 
+        background: rgba(99, 102, 241, 0.2); color: var(--primary); 
+        border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-bottom: 10px; 
+    }
+
+    /* --- GALLERY SHOWCASE --- */
+    .gallery-container {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 20px;
+        width: 100%;
+        max-width: 1300px;
+        height: 600px;
+    }
+
+    .gallery-item {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        transition: all 0.4s ease;
+    }
+    
+    .gallery-item:hover { transform: scale(1.02); z-index: 5; border-color: var(--accent); }
+
+    .gallery-item img {
+        width: 100%; height: 100%; object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.1); }
+
+    .gallery-item.main { grid-row: 1 / -1; }
+    
+    .img-label {
+        position: absolute; bottom: 15px; left: 15px;
+        background: rgba(0,0,0,0.8); backdrop-filter: blur(4px);
+        padding: 8px 16px; border-radius: 8px;
+        font-size: 0.85rem; font-weight: 500; color: white;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* --- NAVIGATION CONTROLS --- */
+    .nav-controls {
+        position: fixed;
+        bottom: 30px;
+        right: 40px;
+        display: flex;
+        gap: 15px;
+        z-index: 100;
+        background: rgba(0,0,0,0.5);
+        padding: 10px;
+        border-radius: 50px;
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+    }
+
+    .nav-btn {
+        background: rgba(255,255,255,0.1);
+        border: none;
+        color: white;
+        width: 50px; height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        transition: all 0.2s;
+        font-size: 1.2rem;
+    }
+
+    .nav-btn:hover { background: var(--primary); box-shadow: var(--glow); transform: scale(1.1); }
+    .slide-counter {
+        position: fixed; bottom: 45px; left: 40px;
+        font-family: 'Space Grotesk', monospace;
+        color: var(--text-muted);
+        font-size: 1.2rem; z-index: 100;
+    }
+
+    /* --- ANIMATIONS --- */
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
     }
 
 </style>
 </head> 
 <body>
 
-<div class="slides-container" id="scroller">
+<!-- NAVIGATION -->
+<div class="slide-counter"><span id="current-slide">01</span> / <span id="total-slides">10</span></div>
+<div class="nav-controls">
+    <button class="nav-btn" onclick="prevSlide()">&#8593;</button>
+    <button class="nav-btn" onclick="nextSlide()">&#8595;</button>
+</div>
 
-    <!-- SLIDE 1: TITLE & TEAM -->
-    <section class="slide">
-        <div class="slide-number">01 / 10</div>
-        <div style="text-align: center; margin-bottom: 40px;">
-            <h1 style="font-size: 4rem; margin: 0; background: linear-gradient(to right, #a29bfe, #74b9ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">TaskFlow</h1>
-            <h3 style="font-weight: 300; letter-spacing: 2px; margin-top: 10px;">ADVANCED SOFTWARE ENGINEERING & AGILE PRACTICES</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">MCA Core Batch 2025-2027 | Semester 2</p>
+<div class="slides-container">
+
+    <!-- SLIDE 1: INTRO -->
+    <section class="slide active">
+        <div class="krmu-logo-container">
+            <!-- IMPORTANT: Save your logo as 'logo.png' in the same folder -->
+            <img src="logo.png" alt="KRMU Logo" class="krmu-logo">
         </div>
+        <div class="tagline">Semester 2 Project</div>
+        <h1>TaskFlow</h1>
+        <p style="font-size: 1.5rem; color: var(--text-muted); margin-top: 10px; font-weight: 300;">Advanced Software Engineering & Agile Practices</p>
+        <div style="margin-top: 40px; color: var(--accent); font-family: 'Space Grotesk';">MCA Core Batch 2025-2027</div>
         
-        <div class="content-wrapper" style="justify-content: center;">
-            <div class="visual-area" style="flex: 0 1 900px; min-height: auto;">
-                <div class="team-grid">
-                    <div class="team-card"><div class="role">Product Manager</div><div class="name">Shekhar</div></div>
-                    <div class="team-card"><div class="role">Project Manager</div><div class="name">Sumit</div></div>
-                    <div class="team-card"><div class="role">Scrum Master</div><div class="name">Sachin</div></div>
-                    <div class="team-card"><div class="role">Development Team</div><div class="name">Ishaan, Sagar, Hishant</div></div>
+        <div class="team-grid glass-card" style="width: auto; margin-top: 60px; gap: 30px;">
+            <div class="member-card">
+                <span class="role-badge">Product Manager</span>
+                <h3>Shekhar</h3>
+            </div>
+            <div class="member-card">
+                <span class="role-badge">Project Manager</span>
+                <h3>Sumit</h3>
+            </div>
+            <div class="member-card">
+                <span class="role-badge">Scrum Master</span>
+                <h3>Sachin</h3>
+            </div>
+            <div class="member-card">
+                <span class="role-badge">Developers</span>
+                <h3>Ishaan, Sagar, Hishant</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 2: PROBLEM & SOLUTION -->
+    <section class="slide">
+        <div class="split-layout">
+            <div class="glass-card">
+                <h2 style="color: #ef4444;">The Problem</h2>
+                <p style="font-size: 1.4rem; line-height: 1.5;">Students struggle to manage assignments, deadlines, and attendance across multiple disconnected platforms.</p>
+            </div>
+            <div class="glass-card" style="border-color: var(--accent);">
+                <h2 style="color: var(--accent);">Our Solution</h2>
+                <ul class="minimal-list">
+                    <li><strong>Centralized Dashboard:</strong> One place for everything.</li>
+                    <li><strong>Smart Prioritization:</strong> Visual flags for urgent tasks.</li>
+                    <li><strong>Modern UX:</strong> Built for speed and clarity.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: AGILE PROCESS -->
+    <section class="slide">
+        <h2>Agile Workflow</h2>
+        <div class="split-layout glass-card">
+            <div style="display: flex; flex-direction: column; gap: 30px;">
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <div style="font-size: 2.5rem; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px;">🔄</div>
+                    <div>
+                        <h3 style="margin:0;">Sprints</h3>
+                        <p style="margin:0; font-size:0.9rem;">2-Week Cycles</p>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <div style="font-size: 2.5rem; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px;">🗣️</div>
+                    <div>
+                        <h3 style="margin:0;">Standups</h3>
+                        <p style="margin:0; font-size:0.9rem;">15 Min Daily Synch</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-content">
+                <p>We follow the <strong>Scrum Framework</strong>. Instead of a monolithic release, we deliver features iteratively.</p>
+                <p><strong>Sachin (Scrum Master)</strong> ensures blockers are removed daily, while <strong>Shekhar (Product Owner)</strong> prioritizes the backlog.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: TIMELINE -->
+    <section class="slide">
+        <h2>Development Roadmap</h2>
+        <div class="glass-card" style="width: 100%; max-width: 1000px;">
+            <div style="display: flex; justify-content: space-between; position: relative; padding: 20px 0;">
+                <div style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: rgba(255,255,255,0.1); z-index: 0;"></div>
+                
+                <div style="position: relative; z-index: 1; text-align: center;">
+                    <div style="width: 20px; height: 20px; background: var(--accent); border-radius: 50%; margin: 0 auto 15px; box-shadow: 0 0 15px var(--accent);"></div>
+                    <h4>Week 1-2</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Analysis & Setup</p>
+                </div>
+                <div style="position: relative; z-index: 1; text-align: center;">
+                    <div style="width: 20px; height: 20px; background: var(--primary); border-radius: 50%; margin: 0 auto 15px; box-shadow: 0 0 15px var(--primary);"></div>
+                    <h4>Week 3</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Backend Core (Current)</p>
+                </div>
+                <div style="position: relative; z-index: 1; text-align: center;">
+                    <div style="width: 20px; height: 20px; background: #333; border: 2px solid #555; border-radius: 50%; margin: 0 auto 15px;"></div>
+                    <h4>Week 4-6</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Frontend Integration</p>
+                </div>
+                <div style="position: relative; z-index: 1; text-align: center;">
+                    <div style="width: 20px; height: 20px; background: #333; border: 2px solid #555; border-radius: 50%; margin: 0 auto 15px;"></div>
+                    <h4>Week 7</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Testing & Deployment</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SLIDE 2: PROJECT OVERVIEW -->
+    <!-- SLIDE 5: PERSONAS -->
     <section class="slide">
-        <div class="slide-number">02 / 10</div>
-        <div class="content-wrapper">
-            <div class="visual-area">
-                <h3 style="border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px;">The Problem Statement</h3>
-                <p style="font-size: 1.2rem; line-height: 1.6; margin-top: 20px;">
-                    Students struggle to manage assignments, deadlines, and attendance across multiple platforms.
-                </p>
-                <div style="margin-top: 40px; background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px;">
-                    <h4 style="color: var(--secondary-accent);">Our Solution:</h4>
-                    <ul class="points" style="color: white; margin-top: 10px;">
-                        <li>Centralized Task Dashboard.</li>
-                        <li>Visual Priority Management.</li>
-                        <li>Modern UI for better User Experience.</li>
-                    </ul>
+        <h2>User Personas</h2>
+        <div class="split-layout">
+            <div class="glass-card">
+                <div style="font-size: 3rem; margin-bottom: 10px;">🎓</div>
+                <h3 style="color: var(--secondary);">The Student</h3>
+                <p>Overwhelmed by dates. Needs a simple, fast way to check "What is due tomorrow?".</p>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <span class="role-badge">Mobile First</span>
+                    <span class="role-badge">Reminders</span>
                 </div>
             </div>
-            <div class="explanation-area">
-                <h2>Introduction</h2>
-                <div class="sub-heading">Why TaskFlow?</div>
-                <div class="notes-box">
-                    <div class="notes-title">Speaker Notes</div>
-                    <ul class="points">
-                        <li><strong>Context:</strong> Academic pressure is real. We need organization.</li>
-                        <li><strong>Tech Stack:</strong> We chose <strong>Python Flask</strong> for backend robustness and <strong>MySQL</strong> for structured data.</li>
-                        <li><strong>Goal:</strong> To build a tool that helps students "Organize life, one task at a time."</li>
-                    </ul>
+            <div class="glass-card">
+                <div style="font-size: 3rem; margin-bottom: 10px;">👨‍🏫</div>
+                <h3 style="color: var(--accent);">The Admin</h3>
+                <p>Needs to broadcast tasks to entire batches without manual entry for each student.</p>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <span class="role-badge">Bulk Actions</span>
+                    <span class="role-badge">Analytics</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SLIDE 3: AGILE METHODOLOGY -->
+    <!-- SLIDE 6: KANBAN -->
     <section class="slide">
-        <div class="slide-number">03 / 10</div>
-        <div class="content-wrapper">
-            <div class="visual-area" style="align-items: center; justify-content: space-around; flex-direction: row;">
+        <h2>Kanban Status</h2>
+        <div class="glass-card" style="width: 100%; max-width: 1200px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+            <!-- DONE -->
+            <div style="background: rgba(20, 184, 166, 0.1); padding: 15px; border-radius: 10px; border-top: 3px solid var(--accent);">
+                <h4 style="margin-bottom: 15px; color: var(--accent);">DONE</h4>
+                <div style="background: #fff; color: #000; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">DB Schema Design</div>
+                <div style="background: #fff; color: #000; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">Login UI (HTML/CSS)</div>
+            </div>
+            <!-- DOING -->
+            <div style="background: rgba(168, 85, 247, 0.1); padding: 15px; border-radius: 10px; border-top: 3px solid var(--secondary);">
+                <h4 style="margin-bottom: 15px; color: var(--secondary);">IN PROGRESS</h4>
+                <div style="background: #fff; color: #000; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">Python Auth Logic</div>
+                <div style="background: #fff; color: #000; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">Task CRUD API</div>
+            </div>
+            <!-- TODO -->
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 10px; border-top: 3px solid #666;">
+                <h4 style="margin-bottom: 15px; color: #999;">TO DO</h4>
+                <div style="background: #e0e0e0; color: #555; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">Profile Settings</div>
+                <div style="background: #e0e0e0; color: #555; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-size: 0.9rem;">Cloud Deployment</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 7: ARCHITECTURE (UML) -->
+    <section class="slide">
+        <h2>System Architecture</h2>
+        <div class="split-layout">
+             <div class="glass-card" style="text-align: center;">
+                 <h3>Use Case</h3>
+                 <svg width="200" height="200" viewBox="0 0 100 100" style="margin: 20px auto; display: block; filter: drop-shadow(0 0 5px white);">
+                     <circle cx="50" cy="20" r="10" stroke="white" stroke-width="2" fill="none"/>
+                     <line x1="50" y1="30" x2="50" y2="70" stroke="white" stroke-width="2"/>
+                     <line x1="50" y1="40" x2="20" y2="60" stroke="white" stroke-width="2"/>
+                     <line x1="50" y1="40" x2="80" y2="60" stroke="white" stroke-width="2"/>
+                     <line x1="50" y1="70" x2="30" y2="100" stroke="white" stroke-width="2"/>
+                     <line x1="50" y1="70" x2="70" y2="100" stroke="white" stroke-width="2"/>
+                 </svg>
+                 <p>Actor: Student</p>
+             </div>
+             <div class="glass-card">
+                 <h3>Class Structure</h3>
+                 <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px; border: 1px solid #444;">
+                     <span style="color: var(--secondary);">class</span> User {<br>
+                     &nbsp;&nbsp;+ id: Integer<br>
+                     &nbsp;&nbsp;+ email: String<br>
+                     &nbsp;&nbsp;+ password_hash: String<br>
+                     }<br><br>
+                     <span style="color: var(--accent);">class</span> Task {<br>
+                     &nbsp;&nbsp;+ id: Integer<br>
+                     &nbsp;&nbsp;+ title: String<br>
+                     &nbsp;&nbsp;+ is_complete: Boolean<br>
+                     &nbsp;&nbsp;+ user_id: Integer (FK)<br>
+                     }
+                 </div>
+             </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 8: UI SHOWCASE 1 -->
+    <section class="slide">
+        <h2 style="margin-bottom: 40px;">Application Showcase</h2>
+        <div class="gallery-container">
+            <!-- Large Main Image (Login) -->
+            <div class="gallery-item main">
+                <img src="login.png" alt="Login Page">
+                <div class="img-label">Secure Authentication UI</div>
+            </div>
+            
+            <!-- Secondary Image (Dashboard) -->
+            <div class="gallery-item">
+                <img src="dashboard.png" alt="Dashboard">
+                <div class="img-label">Student Dashboard</div>
+            </div>
+            
+            <!-- Secondary Image (Add Task) -->
+            <div class="gallery-item">
+                <img src="add_task.png" alt="Add Task Modal">
+                <div class="img-label">Task Creation Logic</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 9: UI SHOWCASE 2 (TASK MGMT) -->
+    <section class="slide">
+        <h2 style="margin-bottom: 40px;">Task Management</h2>
+        <div class="gallery-container">
+             <!-- Large Main Image (My Tasks - Red/Yellow Cards) -->
+             <div class="gallery-item main">
+                <img src="my_tasks.png" alt="My Tasks List">
+                <div class="img-label">Task Filtering & Actions</div>
+            </div>
+
+            <!-- Secondary Image (Admin/Stats) -->
+             <div class="gallery-item">
+                <img src="admin.png" alt="Admin View">
+                <div class="img-label">Admin Controls</div>
+            </div>
+            
+             <!-- Text Block -->
+             <div class="gallery-item" style="background: var(--bg-panel); display: flex; align-items: center; justify-content: center; padding: 20px;">
                 <div style="text-align: center;">
-                    <div style="font-size: 3rem;">🔄</div>
-                    <h3>Sprints</h3>
-                    <p style="font-size: 0.8rem; color:#aaa;">2-Week Cycles</p>
-                </div>
-                <div style="font-size: 2rem; color: var(--secondary-accent);">&rarr;</div>
-                <div style="text-align: center;">
-                    <div style="font-size: 3rem;">🗣️</div>
-                    <h3>Daily Standups</h3>
-                    <p style="font-size: 0.8rem; color:#aaa;">15 Min Synch</p>
-                </div>
-                <div style="font-size: 2rem; color: var(--secondary-accent);">&rarr;</div>
-                <div style="text-align: center;">
-                    <div style="font-size: 3rem;">📋</div>
-                    <h3>Kanban</h3>
-                    <p style="font-size: 0.8rem; color:#aaa;">Visual Tracking</p>
-                </div>
-            </div>
-            <div class="explanation-area">
-                <h2>Agile Practices</h2>
-                <div class="sub-heading">How we work as a team</div>
-                <div class="notes-box">
-                    <div class="notes-title">Process Explanation</div>
-                    <ul class="points">
-                        <li><strong>Scrum Framework:</strong> We are following the Scrum methodology.</li>
-                        <li><strong>Roles:</strong> Sachin acts as our Scrum Master, removing blockers.</li>
-                        <li><strong>Iterative:</strong> Instead of building everything at once, we build in small "Sprints" (e.g., Login first, then Dashboard).</li>
-                        <li><strong>Feedback:</strong> We review progress weekly.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SLIDE 4: DEVELOPMENT WORKFLOW -->
-    <section class="slide">
-        <div class="slide-number">04 / 10</div>
-        <div class="content-wrapper">
-            <div class="visual-area">
-                <div class="timeline-item">
-                    <div class="timeline-line"></div>
-                    <div class="timeline-marker done"></div>
-                    <div><h4 style="color:#00b894;">Week 1: Analysis</h4><p style="font-size:0.8rem; color:#aaa;">Req Gathering & Design</p></div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-line"></div>
-                    <div class="timeline-marker done"></div>
-                    <div><h4 style="color:#00b894;">Week 2: Setup</h4><p style="font-size:0.8rem; color:#aaa;">Env Setup & Git Init</p></div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-line"></div>
-                    <div class="timeline-marker done"></div>
-                    <div><h4 style="color:#fdcb6e;">Week 3: Backend Core</h4><p style="font-size:0.8rem; color:#aaa;">Auth & DB Models (Current)</p></div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div><h4>Week 4-6: Frontend & Logic</h4><p style="font-size:0.8rem; color:#aaa;">Integration & Testing</p></div>
-                </div>
-            </div>
-            <div class="explanation-area">
-                <h2>Timeline</h2>
-                <div class="sub-heading">7-Week Development Roadmap</div>
-                <div class="notes-box">
-                    <div class="notes-title">Status Update</div>
-                    <ul class="points">
-                        <li><strong>Current Phase:</strong> We are in Week 3.</li>
-                        <li><strong>Achievements:</strong> Database is connected, User Login is functional.</li>
-                        <li><strong>Next Steps:</strong> Connecting the Glassmorphism Dashboard to the Backend API.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SLIDE 5: USER PERSONAS -->
-    <section class="slide">
-        <div class="slide-number">05 / 10</div>
-        <div class="content-wrapper">
-            <div class="visual-area" style="flex-direction: row; gap: 20px;">
-                <!-- Persona 1 -->
-                <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 15px; flex: 1;">
-                    <div style="font-size: 2rem;">🎓</div>
-                    <h3 style="margin: 10px 0;">The Student</h3>
-                    <p style="font-size: 0.85rem; color: #ccc;">"I have 5 assignments due this week and I keep forgetting dates."</p>
-                    <div style="margin-top: 15px; border-top: 1px solid #555; padding-top: 10px;">
-                        <span class="tag">Needs Reminders</span>
-                        <span class="tag">Simple UI</span>
-                    </div>
-                </div>
-                <!-- Persona 2 -->
-                <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 15px; flex: 1;">
-                    <div style="font-size: 2rem;">👨‍🏫</div>
-                    <h3 style="margin: 10px 0;">The Admin</h3>
-                    <p style="font-size: 0.85rem; color: #ccc;">"I need to broadcast assignment deadlines to all students efficiently."</p>
-                    <div style="margin-top: 15px; border-top: 1px solid #555; padding-top: 10px;">
-                        <span class="tag">Bulk Create</span>
-                        <span class="tag">Analytics</span>
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-area">
-                <h2>User Analysis</h2>
-                <div class="sub-heading">Who are we building for?</div>
-                <div class="notes-box">
-                    <div class="notes-title">Requirement Analysis</div>
-                    <ul class="points">
-                        <li><strong>User Centric Design:</strong> We analyzed the pain points of actual MCA students.</li>
-                        <li><strong>Key Requirement:</strong> Speed and Simplicity. Students won't use a slow app.</li>
-                        <li><strong>Accessibility:</strong> High contrast colors (Dark mode) for late-night study sessions.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SLIDE 6: KANBAN BOARD -->
-    <section class="slide">
-        <div class="slide-number">06 / 10</div>
-        <div class="content-wrapper">
-            <div class="visual-area" style="padding: 0; background: none; border: none; box-shadow: none;">
-                <div class="kanban-wrapper">
-                    <!-- DONE -->
-                    <div class="k-col">
-                        <div class="k-header" style="color:#00b894; border-color:#00b894;">Done <span>3</span></div>
-                        <div class="k-card border-high"><strong>DB Schema Design</strong><br><span style="color:#666; font-size:0.7rem;">ER Diagram approved</span></div>
-                        <div class="k-card border-med"><strong>Login Page UI</strong><br><span style="color:#666; font-size:0.7rem;">HTML/CSS Ready</span></div>
-                        <div class="k-card border-high"><strong>Flask Setup</strong><br><span style="color:#666; font-size:0.7rem;">Virtual Env created</span></div>
-                    </div>
-                    <!-- IN PROGRESS -->
-                    <div class="k-col">
-                        <div class="k-header" style="color:#fdcb6e; border-color:#fdcb6e;">Doing <span>2</span></div>
-                        <div class="k-card border-high"><strong>Auth API</strong><br><span style="color:#666; font-size:0.7rem;">Python Login Logic</span></div>
-                        <div class="k-card border-med"><strong>Task CRUD</strong><br><span style="color:#666; font-size:0.7rem;">Add/Delete Function</span></div>
-                    </div>
-                    <!-- TO DO -->
-                    <div class="k-col">
-                        <div class="k-header" style="color:#ff7675; border-color:#ff7675;">To Do <span>2</span></div>
-                        <div class="k-card border-low"><strong>Profile Settings</strong><br><span style="color:#666; font-size:0.7rem;">Change Password</span></div>
-                        <div class="k-card border-high"><strong>Deployment</strong><br><span style="color:#666; font-size:0.7rem;">Render/Heroku Host</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-area">
-                <h2>Project Board</h2>
-                <div class="sub-heading">Kanban Visualization</div>
-                <div class="notes-box">
-                    <div class="notes-title">Tracking Progress</div>
-                    <ul class="points">
-                        <li><strong>Transparency:</strong> This board allows Shekhar (Product Manager) to see exactly where the Developers are stuck.</li>
-                        <li><strong>WIP Limit:</strong> We try not to keep too many tasks in "Doing" to maintain focus.</li>
-                        <li><strong>High Priority (Red):</strong> Core features like Authentication and Database.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SLIDE 7: USE CASE DIAGRAM -->
-    <section class="slide">
-        <div class="slide-number">07 / 10</div>
-        <div class="content-wrapper">
-            <div class="visual-area" style="flex-direction: row; gap: 40px;">
-                <div style="text-align: center;">
-                    <svg class="stickman" viewBox="0 0 100 200">
-                        <circle cx="50" cy="30" r="20" />
-                        <line x1="50" y1="50" x2="50" y2="120" />
-                        <line x1="50" y1="70" x2="10" y2="100" />
-                        <line x1="50" y1="70" x2="90" y2="100" />
-                        <line x1="50" y1="120" x2="20" y2="180" />
-                        <line x1="50" y1="120" x2="80" y2="180" />
-                    </svg>
-                    <div style="margin-top:10px; font-weight:bold;">Student</div>
-                </div>
-                <div style="border: 2px solid rgba(255,255,255,0.3); border-radius: 15px; padding: 20px; width: 300px; position: relative;">
-                    <div style="position: absolute; top: -10px; left: 20px; background: #2d3436; padding: 0 5px; font-size: 0.8rem;">System Boundary</div>
-                    <div style="background:white; color:black; border-radius:20px; padding:8px; margin:10px auto; text-align:center; width:80%;">Login</div>
-                    <div style="background:white; color:black; border-radius:20px; padding:8px; margin:10px auto; text-align:center; width:80%;">Manage Tasks</div>
-                    <div style="background:white; color:black; border-radius:20px; padding:8px; margin:10px auto; text-align:center; width:80%;">View Dashboard</div>
-                </div>
-            </div>
-            <div class="explanation-area">
-                <h2>Functional View</h2>
-                <div class="sub-heading">Use Case Diagram</div>
-                <div class="notes-box">
-                    <div class="notes-title">System Functions</div>
-                    <ul class="points">
-                        <li><strong>Actors:</strong> The Student and the Admin.</li>
-                        <li><strong>Scope:</strong> The diagram defines what is "Inside" the system vs "Outside".</li>
-                        <li><strong>Flow:</strong> A student logs in -> Views Dashboard -> Manages Tasks.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SLIDE 8: UML CLASS DIAGRAM -->
-    <section class="slide">
-        <div class="slide-number">08 / 10</div>
-        <div class="content-wrapper">
-            <div class="visual-area" style="flex-direction: row; gap: 30px; align-items: flex-start; padding-top: 80px;">
-                <!-- User Class -->
-                <div class="uml-box">
-                    <div class="uml-header">User</div>
-                    <div class="uml-body">- id: int<br>- name: string<br>- email: string<br>----------------<br>+ login()<br>+ register()</div>
-                </div>
-                <!-- Connector -->
-                <div style="margin-top: 50px; text-align: center;">
-                    <div style="font-size: 0.8rem; color: #aaa;">1 to Many</div>
-                    <div style="width: 60px; height: 2px; background: white; position: relative;">
-                        <div style="width: 10px; height: 10px; background: black; border: 2px solid white; transform: rotate(45deg); position: absolute; left: -5px; top: -4px;"></div>
-                    </div>
-                </div>
-                <!-- Task Class -->
-                <div class="uml-box">
-                    <div class="uml-header">Task</div>
-                    <div class="uml-body">- id: int<br>- title: string<br>- status: bool<br>- priority: enum<br>----------------<br>+ create()<br>+ delete()</div>
-                </div>
-            </div>
-            <div class="explanation-area">
-                <h2>Technical View</h2>
-                <div class="sub-heading">UML Class Diagram</div>
-                <div class="notes-box">
-                    <div class="notes-title">Data Structure</div>
-                    <ul class="points">
-                        <li><strong>Models:</strong> Represented as Python Classes in Flask.</li>
-                        <li><strong>Relationship:</strong> A 'Composition' relationship. A Task cannot exist without a User.</li>
-                        <li><strong>Security:</strong> Password fields are private (-) and hashed.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SLIDE 9: NEW - UI SHOWCASE -->
-    <section class="slide">
-        <div class="slide-number">09 / 10</div>
-        <div class="content-wrapper">
-            <div class="visual-area" style="background:none; border:none; box-shadow:none; padding:0;">
-                <div class="gallery-grid">
-                    <!-- Main Feature: Login -->
-                    <div class="gallery-item large">
-                        <img src="login.png" alt="Login Screen">
-                        <div class="gallery-caption">Secure Login Interface</div>
-                    </div>
-                    <!-- Dashboard -->
-                    <div class="gallery-item">
-                        <img src="dashboard.png" alt="Dashboard">
-                        <div class="gallery-caption">Admin Dashboard</div>
-                    </div>
-                    <!-- Add Task -->
-                    <div class="gallery-item">
-                        <img src="add_task.png" alt="Add Task">
-                        <div class="gallery-caption">Add Task Modal</div>
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-area">
-                <h2>UI Walkthrough</h2>
-                <div class="sub-heading">Live Application Preview</div>
-                <div class="notes-box">
-                    <div class="notes-title">Current Progress</div>
-                    <ul class="points">
-                        <li><strong>Glassmorphism:</strong> Implemented nicely on the Login screen (Left Large Image).</li>
-                        <li><strong>Interactivity:</strong> The Task creation modal is fully functional using JavaScript popups.</li>
-                        <li><strong>Responsive:</strong> The layout adapts to screen size.</li>
-                    </ul>
+                    <h3 style="color: var(--accent);">Features</h3>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">Dark Mode Native.<br>Real-time Updates.<br>Mobile Responsive.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- SLIDE 10: CONCLUSION -->
-    <section class="slide" style="border-bottom: none;">
-        <div class="slide-number">10 / 10</div>
-        <div style="text-align: center; max-width: 800px;">
-            <h2 style="font-size: 3.5rem;">Conclusion</h2>
-            <p style="font-size: 1.3rem; color: #b2bec3; margin-bottom: 50px;">
-                TaskFlow is not just an app; it's an Agile implementation of Academic Organization.
-            </p>
-            <div style="display: flex; gap: 20px; justify-content: center;">
-                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; width: 200px;">
-                    <h3 style="margin:0; color: #00cec9;">Next Sprint</h3>
-                    <p style="font-size: 0.9rem; margin-top: 5px; color: #aaa;">Email Notifications</p>
-                </div>
-                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; width: 200px;">
-                    <h3 style="margin:0; color: #a29bfe;">Goal</h3>
-                    <p style="font-size: 0.9rem; margin-top: 5px; color: #aaa;">100% Submission</p>
-                </div>
+    <section class="slide">
+        <h1 style="font-size: 4rem;">Conclusion</h1>
+        <p style="font-size: 1.5rem; color: var(--text-muted); margin-bottom: 50px;">Organize your life, one task at a time.</p>
+        
+        <div class="split-layout" style="gap: 30px; max-width: 900px;">
+            <div class="glass-card" style="text-align: center;">
+                <h3 style="color: var(--accent);">Next Sprint</h3>
+                <p>Email Notifications</p>
             </div>
-            <h3 style="margin-top: 60px;">Thank You!</h3>
-            <p style="font-size: 0.9rem; color: #666;">MCA Core Batch 2025-2027</p>
+            <div class="glass-card" style="text-align: center;">
+                <h3 style="color: var(--secondary);">Goal</h3>
+                <p>100% On-time Submission</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px; font-size: 1.2rem; font-family: 'Space Grotesk';">
+            Thank You!
         </div>
     </section>
 
 </div>
 
-<div class="nav-hint">Use ⬆ ⬇ Arrow Keys to Navigate</div>
-
 <script>
-    // Simple Navigation Script for Arrow Keys
-    document.addEventListener('keydown', function(e) {
-        const scroller = document.getElementById('scroller');
-        const scrollAmount = window.innerHeight;
+    let currentSlideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    
+    // Update Counter Text
+    document.getElementById('total-slides').innerText = totalSlides < 10 ? '0' + totalSlides : totalSlides;
+
+    function updateSlide() {
+        // Remove active class from all
+        slides.forEach(slide => slide.classList.remove('active'));
         
+        // Add active class to current
+        slides[currentSlideIndex].classList.add('active');
+
+        // Update Counter
+        let displayNum = currentSlideIndex + 1;
+        document.getElementById('current-slide').innerText = displayNum < 10 ? '0' + displayNum : displayNum;
+    }
+
+    function nextSlide() {
+        if (currentSlideIndex < totalSlides - 1) {
+            currentSlideIndex++;
+            updateSlide();
+        }
+    }
+
+    function prevSlide() {
+        if (currentSlideIndex > 0) {
+            currentSlideIndex--;
+            updateSlide();
+        }
+    }
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-            scroller.scrollBy({ top: scrollAmount, behavior: 'smooth' });
-            e.preventDefault();
+            nextSlide();
         } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-            scroller.scrollBy({ top: -scrollAmount, behavior: 'smooth' });
-            e.preventDefault();
+            prevSlide();
         }
     });
+
+    // Initialize
+    updateSlide();
+
 </script>
 
 </body> 
